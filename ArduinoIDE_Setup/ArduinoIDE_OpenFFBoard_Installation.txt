@@ -1,0 +1,87 @@
+
+1) Add the official STM32 Boards library (STM32duino) to the ArduinoIDE
+   File-> Preferences -> Add the URL to the Additional Boards Manager 
+   URLs: https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+
+2) Add OpenFFBoard variant files to the folder below:
+   ...\STM32\hardware\stm32\<version>\variants\STM32F4xx\F407V(E-G)T_F417V(E-G)T\
+       └── variant_OpenFFBoard_F407VG.h
+	   └── variant_OpenFFBoard_F407VG.cpp
+
+3) Add the OpenFFBoard variant to the Boards.txt located here:
+   ...\STM32\hardware\stm32\<version>\boards.txt
+
+    In the GenF4 section of the boards.txt insert the data below (Example showing location following: 
+
+    ▼▼ Add This ▼▼
+	
+##############################################################
+# OpenFFBoard - STM32F407VGT6 | Added by Sqwince
+##############################################################
+GenF4.menu.pnum.OPENFFBOARD_F407VG=OpenFFBoard_F407VG
+GenF4.menu.pnum.OPENFFBOARD_F407VG.upload.maximum_size=1048576
+GenF4.menu.pnum.OPENFFBOARD_F407VG.upload.maximum_data_size=131072
+GenF4.menu.pnum.OPENFFBOARD_F407VG.build.board=OPENFFBOARD_F407VG
+GenF4.menu.pnum.OPENFFBOARD_F407VG.build.product_line=STM32F407xx
+GenF4.menu.pnum.OPENFFBOARD_F407VG.build.variant_h=variant_{build.board}.h
+GenF4.menu.pnum.OPENFFBOARD_F407VG.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+GenF4.menu.pnum.OPENFFBOARD_F407VG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
+	
+	
+	▼▼ AS SHOWN BELOW ▼▼
+
+################################################################################
+# Generic F4
+
+GenF4.name=Generic STM32F4 series
+
+GenF4.build.core=arduino
+GenF4.build.board=GenF4
+GenF4.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF4.build.mcu=cortex-m4
+GenF4.build.fpu=-mfpu=fpv4-sp-d16
+GenF4.build.float-abi=-mfloat-abi=hard
+GenF4.build.series=STM32F4xx
+GenF4.build.flash_offset=0x0
+GenF4.upload.maximum_size=0
+GenF4.upload.maximum_data_size=0
+GenF4.openocd.target=stm32f4x
+GenF4.vid.0=0x0483
+GenF4.pid.0=0x5740
+
+##############################################################
+# OpenFFBoard - STM32F407VGT6 | Added by Sqwince
+##############################################################
+GenF4.menu.pnum.OPENFFBOARD_F407VG=OpenFFBoard_F407VG
+GenF4.menu.pnum.OPENFFBOARD_F407VG.upload.maximum_size=1048576
+GenF4.menu.pnum.OPENFFBOARD_F407VG.upload.maximum_data_size=131072
+GenF4.menu.pnum.OPENFFBOARD_F407VG.build.board=OPENFFBOARD_F407VG
+GenF4.menu.pnum.OPENFFBOARD_F407VG.build.product_line=STM32F407xx
+GenF4.menu.pnum.OPENFFBOARD_F407VG.build.variant_h=variant_{build.board}.h
+GenF4.menu.pnum.OPENFFBOARD_F407VG.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+GenF4.menu.pnum.OPENFFBOARD_F407VG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
+
+# Black F407VE
+# https://github.com/mcauser/BLACK_F407VEZ
+GenF4.menu.pnum.BLACK_F407VE=Black F407VE
+GenF4.menu.pnum.BLACK_F407VE.upload.maximum_size=524288
+GenF4.menu.pnum.BLACK_F407VE.upload.maximum_data_size=131072
+GenF4.menu.pnum.BLACK_F407VE.build.board=BLACK_F407VE
+GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
+GenF4.menu.pnum.BLACK_F407VE.build.variant_h=variant_BLACK_F407VX.h
+GenF4.menu.pnum.BLACK_F407VE.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+GenF4.menu.pnum.BLACK_F407VE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+GenF4.menu.pnum.BLACK_F407VE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
+
+
+4) ArduinoIDE Board Configuration
+   * Tools -> Board -> STM32 MCU Based Boards = Generic STM32F4 Series
+   *           Board Part Number: OpenFFBoard_F407VG
+   * Debug Symbols and Core Logs: Symbols Enabled (-g)
+   *                    Optimize: Smallest (-Os Default
+   *           C Runtime Library: Newlib Nano + Float Printf
+   *               Upload Method: STM32CubeProgrammer (DFU)
+   *  USB Support (if available): CDC (Generic 'Serial' supersede U(S)ART)
+   *                              HID (keyboard mouse)
+   *  	         U(S)ART Support: Enabled (generic 'Serial')
+   *                   USB Speed: Low/Full Speed 
